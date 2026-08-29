@@ -1,0 +1,4 @@
+# Static site on Apache / LiteSpeed shared hosting (ChemiCloud).
+Options -Indexes
+DirectorySlash On
+ErrorDocument 404 /404.html
