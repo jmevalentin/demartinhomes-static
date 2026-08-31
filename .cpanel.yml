@@ -1,0 +1,17 @@
+# cPanel "Git Version Control" deploy file. Used ONLY if you clone the static
+# repo somewhere OTHER than the document root and let cPanel copy files across
+# on "Deploy HEAD Commit" (approach B in DEPLOY.md). If you clone the static
+# repo directly into the document root (approach A), you don't need this.
+#
+# The CI workflow writes this into the static repo as `.cpanel.yml`, filling in
+# your document-root path from the repo variable CPANEL_DEPLOYPATH (the full
+# path to the folder the domain serves, e.g. /home/<user>/demartinhomes.com).
+# The trailing slash matters. Existing files at the target are overwritten;
+# untouched hosting files (.well-known, cgi-bin, .user.ini, php.ini) are left
+# in place because this copies INTO the folder rather than replacing it.
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/jmevalen/demartinhomes.com/
+    - /bin/cp -R * "$DEPLOYPATH"
+    - /bin/cp .htaccess "$DEPLOYPATH" 2>/dev/null || true
